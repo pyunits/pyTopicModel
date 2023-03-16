@@ -25,7 +25,6 @@ def parse_arg(argv):
 
 
 def main(args):
-    print(args)
     config.AbstractColumName = args.a
     config.TitleColumNane = args.t
     config.TopicsRange = args.r
@@ -34,7 +33,7 @@ def main(args):
     dirs = os.path.abspath(args.d)
     config.DataPath = os.path.abspath(args.p)
 
-    config.StopPath = os.path.join(dirs, "stopwords.txt")
+    config.StopPath = os.path.join(os.path.dirname(__file__), "stopwords.txt")
     config.ModelDir = os.path.join(dirs, "model")
     config.PreprocessPath = os.path.join(dirs, "preprocess_words.txt")
     config.WordPath = os.path.join(dirs, "word_frequency.xlsx")

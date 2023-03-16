@@ -16,6 +16,7 @@ def read_title_abstract(config: Config) -> list:
     :return: 返回数组：[标题.摘要,标题.摘要,标题.摘要]
     """
     df = pd.read_excel(config.DataPath)
+    df.reset_index(inplace=True)
     ls = []
     for _, line in df.iterrows():
         title = line[config.TitleColumNane]
@@ -24,7 +25,7 @@ def read_title_abstract(config: Config) -> list:
             title = ""
         if pd.isna(abstract):
             abstract = ""
-        ls.append({"text": title + " " + abstract, "id": line[config.IDColumName]})
+        ls.append({"text": title + " " + abstract, "id": line["index"]})
     return ls
 
 

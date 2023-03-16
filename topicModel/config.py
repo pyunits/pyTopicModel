@@ -5,7 +5,7 @@
 
 class Config:
     TopicsRange: (int, int)  # 主题范围
-    PreprocessPath: str  # 预测文件路径
+    PreprocessPath: str  # 预处理文件路径
     AbstractColumName: str  # 摘要列名
     TitleColumNane: str  # 标题列名
     DataPath: str  # 加载数据源的文本路径
