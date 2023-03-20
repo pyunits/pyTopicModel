@@ -16,7 +16,7 @@ def main():
     parser.add_argument("mode", choices=["train", "predict"], help="选择程序模式")
 
     train_arg = parser.add_argument_group("训练", "训练模型参数")
-    train_arg.add_argument("-p", type=str, help="加载分析的数据路径", required=True)
+    train_arg.add_argument("-p", type=str, help="加载分析的数据路径", default="topic.xlsx", required=False)
     train_arg.add_argument("-a", type=str, help="摘要列名", default="abstract", required=False)
     train_arg.add_argument("-t", type=str, help="标题列名", default="title", required=False)
     train_arg.add_argument("-r", nargs=2, type=int, help="主题数取值范围：至少是1", default=[1, 50], required=False)
