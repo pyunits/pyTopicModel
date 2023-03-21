@@ -14,8 +14,8 @@ with open('requirements.txt', encoding='utf-8') as f:
     install_requires = f.read().strip().splitlines()
 
 setup(
-    name="pyUnits-topicModel".lower(),
-    version="1.0.0",
+    name="pyUnit-topicModel".lower(),
+    version="1.0.1",
     description="主题识别模型",
     long_description=long_text,
     long_description_content_type="text/markdown",
