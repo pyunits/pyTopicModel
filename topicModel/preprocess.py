@@ -50,6 +50,10 @@ def save_word_count(word_path: str, word_count: dict):
     ls = []
 
     for index, (key, value) in enumerate(word_count.items()):
+        # [修复] @2023-04-27
+        # 词频不能低于2，不然词表太大
+        if value < 2:
+            continue
         ls.append({"id": index, "单词": key, "词频": value})
 
     pd.DataFrame(ls).to_excel(word_path, index=False)

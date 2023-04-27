@@ -15,7 +15,7 @@ with open('requirements.txt', encoding='utf-8') as f:
 
 setup(
     name="pyUnit-topicModel".lower(),
-    version="1.0.1",
+    version="1.0.2",
     description="主题识别模型",
     long_description=long_text,
     long_description_content_type="text/markdown",
