@@ -3,6 +3,7 @@
 # @Time  : 2022/8/31 15:21
 # @Email: jtyoui@qq.com
 import json
+from typing import List
 import pandas as pd
 from collections import Counter
 from .tool import word_cut
@@ -41,7 +42,7 @@ def read_stop_table(stop_path: str) -> dict:
     return m
 
 
-def save_word_count(word_path: str, word_count: dict):
+def save_word_count(word_path: str, word_count: List[tuple]):
     """ 保存词频信息,保存成Excel，[index,单词,词频]
 
     :param word_path: 词频文本保存路径
@@ -49,14 +50,20 @@ def save_word_count(word_path: str, word_count: dict):
     """
     ls = []
 
-    for index, (key, value) in enumerate(word_count.items()):
-        # [修复] @2023-04-27
-        # 词频不能低于2，不然词表太大
-        if value < 2:
-            continue
-        ls.append({"id": index, "单词": key, "词频": value})
+    for index, (key, value) in enumerate(word_count):
+        ls.append({"单词": key, "词频": value})
 
-    pd.DataFrame(ls).to_excel(word_path, index=False)
+    df = pd.DataFrame(ls)
+    # 如果df为空，就不保存
+    if df.empty:
+        return
+
+    # 当df的大小超过 65535 时，就保存65535行
+    row = 65535
+    if df.shape[0] > row:
+        df = df.loc[:row, :]
+
+    df.to_excel(word_path, index=False)
 
 
 def preprocess_func(config: Config, stop_num: int = 3) -> list:
@@ -76,7 +83,7 @@ def preprocess_func(config: Config, stop_num: int = 3) -> list:
         if value < stop_num and m.get(key, True):
             m[key] = False
 
-    save_word_count(config.WordPath, count)
+    save_word_count(config.WordPath, count.most_common())
 
     for content in cut:
         values = [value for value in content["text"] if m.get(value, True)]
